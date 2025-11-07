@@ -23,7 +23,7 @@
 //     fn fooThatSuspends() void {
 //         suspend {} // return control, but leave the frame alone
 //     }
-//
+//s
 // 4. To call any function in async context and get a reference
 // to its frame for later use, use the 'async' keyword:
 //
@@ -48,7 +48,7 @@ const print = @import("std").debug.print;
 pub fn main() void {
     // Additional Hint: you can assign things to '_' when you
     // don't intend to do anything with them.
-    foo();
+    _ = async foo();
 }
 
 fn foo() void {

@@ -41,12 +41,12 @@ pub fn main() !void {
     // can you go here to find a way to read the content?
     // https://ziglang.org/documentation/master/std/#std.fs.File
     // hint: you might find two answers that are both valid in this case
-    const bytes_read = zig_read_the_file_or_i_will_fight_you(&content);
+    const bytes_read = try file.read(content[0..]);
 
     // Woah, too screamy. I know you're excited for zigling time but tone it down a bit.
     // Can you print only what we read from the file?
     std.debug.print("Successfully Read {d} bytes: {s}\n", .{
         bytes_read,
-        content, // change this line only
+        content[0..bytes_read], // change this line only
     });
 }

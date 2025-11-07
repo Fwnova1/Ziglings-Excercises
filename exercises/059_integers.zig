@@ -25,5 +25,5 @@ pub fn main() void {
         0x66, // hex
     };
 
-    print("{s} is cool.\n", .{zig});
+    print("{s} is cool.\n", .{zig[0..]});
 }

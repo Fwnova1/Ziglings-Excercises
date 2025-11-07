@@ -73,7 +73,7 @@ pub fn main() void {
             std.debug.print("The pull request has been rejected.\n", .{});
             return;
         },
-        PullRequestState.Merged => break, // Would you know where to break to?
+        PullRequestState.Merged => break :pr, // Would you know where to break to?
     }
     std.debug.print("The pull request has been merged.\n", .{});
 }

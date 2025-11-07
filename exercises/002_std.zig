@@ -11,7 +11,9 @@
 // Please complete the import below:
 //
 
-??? = @import("std");
+// add const std to import
+
+const std = @import("std");
 
 pub fn main() void {
     std.debug.print("Standard Library.\n", .{});

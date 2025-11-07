@@ -28,7 +28,7 @@
 // a little Zig program to help him plan his trips through the woods,
 // but it has some mistakes.
 //
-// *************************************************************
+// ***********************************************************
 // *                A NOTE ABOUT THIS EXERCISE                 *
 // *                                                           *
 // * You do NOT have to read and understand every bit of this  *
@@ -36,7 +36,7 @@
 // * through it and then just focus on the few parts that are  *
 // * actually broken!                                          *
 // *                                                           *
-// *************************************************************
+// ***********************************************************
 //
 const print = @import("std").debug.print;
 
@@ -64,25 +64,25 @@ var f = Place{ .name = "Fox Pond" };
 
 //           The hermit's hand-drawn ASCII map
 //  +---------------------------------------------------+
-//  |         * Archer's Point                ~~~~      |
-//  | ~~~                              ~~~~~~~~         |
-//  |   ~~~| |~~~~~~~~~~~~      ~~~~~~~                 |
-//  |         Bridge     ~~~~~~~~                       |
+//  |         * Archer's Point                ~~      |
+//  | ~                              ~~~~~~         |
+//  |   ~~| |~~~~~~~~~~~      ~~~~~                 |
+//  |         Bridge     ~~~~~~                       |
 //  |  ^             ^                           ^      |
 //  |     ^ ^                      / \                  |
 //  |    ^     ^  ^       ^        |_| Cottage          |
 //  |   Dogwood Grove                                   |
 //  |                  ^     <boat>                     |
-//  |  ^  ^  ^  ^          ~~~~~~~~~~~~~    ^   ^       |
-//  |      ^             ~~ East Pond ~~~               |
-//  |    ^    ^   ^       ~~~~~~~~~~~~~~                |
+//  |  ^  ^  ^  ^          ~~~~~~~~~~~    ^   ^       |
+//  |      ^             ~ East Pond ~~               |
+//  |    ^    ^   ^       ~~~~~~~~~~~~                |
 //  |                           ~~          ^           |
-//  |           ^            ~~~ <-- short waterfall    |
-//  |   ^                 ~~~~~                         |
-//  |            ~~~~~~~~~~~~~~~~~                      |
-//  |          ~~~~ Fox Pond ~~~~~~~    ^         ^     |
-//  |      ^     ~~~~~~~~~~~~~~~           ^ ^          |
-//  |                ~~~~~                              |
+//  |           ^            ~ <-- short waterfall    |
+//  |   ^                 ~~~                         |
+//  |            ~~~~~~~~~~~~~~~                      |
+//  |          ~~ Fox Pond ~~~~~    ^         ^     |
+//  |      ^     ~~~~~~~~~~~~~           ^ ^          |
+//  |                ~~~                              |
 //  +---------------------------------------------------+
 //
 // We'll be reserving memory in our program based on the number of
@@ -192,8 +192,8 @@ const TripItem = union(enum) {
             // Oops! The hermit forgot how to capture the union values
             // in a switch statement. Please capture each value as
             // 'p' so the print statements work!
-            .place => print("{s}", .{p.name}),
-            .path => print("--{}->", .{p.dist}),
+            .place => |p| print("{s}", .{p.name}),
+            .path => |p| print("--{}->", .{p.dist}),
         }
     }
 };
@@ -224,7 +224,7 @@ const NotebookEntry = struct {
 // +---+----------------+----------------+----------+
 //
 const HermitsNotebook = struct {
-    // Remember the array repetition operator `**`? It is no mere
+    // Remember the array repetition operator **? It is no mere
     // novelty, it's also a great way to assign multiple items in an
     // array without having to list them one by one. Here we use it to
     // initialize an array with null values.
@@ -255,7 +255,7 @@ const HermitsNotebook = struct {
             // dereference and optional value "unwrapping" look
             // together. Remember that you return the address with the
             // "&" operator.
-            if (place == entry.*.?.place) return entry;
+            if (place == entry.*.?.place) return &entry.*.?;
             // Try to make your answer this long:__________;
         }
         return null;
@@ -309,7 +309,7 @@ const HermitsNotebook = struct {
     //
     // Looks like the hermit forgot something in the return value of
     // this function. What could that be?
-    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) void {
+    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) TripError!void {
         // We start at the destination entry.
         const destination_entry = self.getEntry(dest);
 

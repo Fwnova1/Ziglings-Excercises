@@ -17,19 +17,19 @@ pub fn main() void {
 
     var frame = async suspendable();
 
-    print("X", .{});
+    print("B    ", .{});
 
     resume frame;
 
-    print("F", .{});
+    print("E", .{});
 }
 
 fn suspendable() void {
-    print("X", .{});
+    print("C", .{});
 
     suspend {
-        print("X", .{});
+        print("D", .{});
     }
 
-    print("X", .{});
+    print("F", .{});
 }
